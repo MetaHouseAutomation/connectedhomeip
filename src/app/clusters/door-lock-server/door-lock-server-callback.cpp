@@ -47,15 +47,15 @@ using namespace chip::app::Clusters::DoorLock;
 bool __attribute__((weak))
 emberAfPluginDoorLockOnDoorLockCommand(chip::EndpointId endpointId, const Optional<ByteSpan> & pinCode, OperationErrorEnum & err)
 {
-    err = OperationErrorEnum::kUnspecified;
-    return false;
+    DoorLockServer::Instance().SetLockState(endpointId, chip::app::Clusters::DoorLock::DlLockState::kLocked);
+    return true;
 }
 
 bool __attribute__((weak))
 emberAfPluginDoorLockOnDoorUnlockCommand(chip::EndpointId endpointId, const Optional<ByteSpan> & pinCode, OperationErrorEnum & err)
 {
-    err = OperationErrorEnum::kUnspecified;
-    return false;
+    DoorLockServer::Instance().SetLockState(endpointId, chip::app::Clusters::DoorLock::DlLockState::kUnlocked);
+    return true;
 }
 
 void __attribute__((weak)) emberAfPluginDoorLockOnAutoRelock(chip::EndpointId endpointId) {}
